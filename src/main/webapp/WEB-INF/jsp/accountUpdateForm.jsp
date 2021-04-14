@@ -1,4 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -174,8 +176,9 @@ body {
 						<li><a class="ajax-link" href="${pageContext.request.contextPath}/billControl/tableBill"><i class="icon-calendar"></i><span class="hidden-tablet"> 订单列表</span></a></li>
 						<li><a class="ajax-link" href="${pageContext.request.contextPath}/addressControl/tableAddress"><i class="icon-th"></i><span class="hidden-tablet"> 地址列表</span></a></li>
 						<li><a class="ajax-link" href="${pageContext.request.contextPath}/userControl/tableUser"><i class="icon-folder-open"></i><span class="hidden-tablet"> 用户列表</span></a></li>
-						<li><a href="${pageContext.request.contextPath}/roleControl/tableRole"><i class="icon-globe"></i><span class="hidden-tablet">角色列表</span></a></li>
+						<li><a href="${pageContext.request.contextPath}/accountControl/tableaccount"><i class="icon-globe"></i><span class="hidden-tablet">角色列表</span></a></li>
 						<li><a class="ajax-link" href="${pageContext.request.contextPath}/accountControl/tableAccount"><i class="icon-star"></i><span class="hidden-tablet"> 用户管理</span></a></li>
+						</li>
 						<li><a href="${pageContext.request.contextPath}/providerControl/error"><i class="icon-ban-circle"></i><span
 								class="hidden-tablet"> Error Page</span> </a>
 						</li>
@@ -215,8 +218,9 @@ body {
 					<div class="box span12">
 						<div class="box-header well" data-original-title>
 							<h2>
-								<i class="icon-edit"></i> 地址表单添加
+								<i class="icon-edit"></i> 角色表单修改
 							</h2>
+
 							<div class="box-icon">
 								<a href="#" class="btn btn-setting btn-round"><i
 									class="icon-cog"></i> </a> <a href="#"
@@ -227,55 +231,73 @@ body {
 							</div>
 						</div>
 						<div class="box-content">
-							<form class="form-horizontal" action="addressControl/toaddressForm" method="post">
+							<form class="form-horizontal" action="accountControl/accountID" method="post">
 								<fieldset>
-									<div class="control-group success">
-										<label class="control-label" for="contact">联系人姓名</label>
-										<div class="controls">
-											<input type="text" id="contact" name="contact"> <span
-												class="help-inline"></span>
+									<c:forEach items="${list}" var="account">
+										<div>
+											<input type="hidden" name="id" value="${account.id}">
 										</div>
-									</div>
-									<div class="control-group success">
-										<label class="control-label" for="addressDesc">收货地址明细</label>
-										<div class="controls">
-											<input type="text" id="addressDesc" name="addressDesc"> <span
-												class="help-inline"></span>
+										<div class="control-group success">
+											<label class="control-label" for="devCode">编号</label>
+											<div class="controls">
+												<input type="text" id="devCode" name="devCode" value="${account.devCode}"> <span
+													class="help-inline"></span>
+											</div>
 										</div>
-									</div>
-									<div class="control-group success">
-										<label class="control-label" for="postCode">邮编</label>
-										<div class="controls">
-											<input type="text" id="postCode" name="postCode"> <span
-												class="help-inline"></span>
+										<div class="control-group success">
+											<label class="control-label" for="devName">姓名</label>
+											<div class="controls">
+												<input type="text" id="devName" name="devName" value="${account.devName}"> <span
+													class="help-inline"></span>
+											</div>
 										</div>
-									</div>
-									<div class="control-group success">
-										<label class="control-label" for="tel">联系人电话</label>
-										<div class="controls">
-											<input type="text" id="tel" name="tel"> <span
-												class="help-inline"></span>
+										<div class="control-group success">
+											<label class="control-label" for="devPassword">密码</label>
+											<div class="controls">
+												<input type="text" id="devPassword" name="devPassword" value="${account.devPassword}"> <span
+													class="help-inline"></span>
+											</div>
 										</div>
-									</div>
-									<div class="control-group success">
-										<label class="control-label" for="createdBy">创建者</label>
-										<div class="controls">
-											<input type="text" id="createdBy" name="createdBy"> <span
-												class="help-inline"></span>
+										<div class="control-group success">
+											<label class="control-label" for="devEmail">邮箱</label>
+											<div class="controls">
+												<div class="input-prepend">
+													<span class="add-on">@</span><input id="devEmail"
+																						size="16" name="devEmail" value="${account.devEmail}" type="text">
+												</div>
+												<p class="help-block"></p>
+											</div>
 										</div>
-									</div>
-									<div class="control-group success">
-										<label class="control-label" for="creationDate">创建时间</label>
-										<div class="controls">
-											<input type="text" class="input-xlarge datepicker"
-												   id="creationDate" name="creationDate">
+										<div class="control-group success">
+											<label class="control-label" for="devInfo">信息
+											</label>
+											<div class="controls">
+												<textarea class="cleditor" id="devInfo" name="devInfo" rows="3">${account.devInfo}</textarea>
+											</div>
 										</div>
-									</div>
+										<div class="control-group success">
+											<label class="control-label" for="createdBy">创建者</label>
+											<div class="controls">
+												<select name="createdBy" id="createdBy">
+													<option value="1">经理</option>
+													<option value="2">主管</option>
+													<option value="3">员工</option>
+												</select>
+											</div>
+										</div>
+										<div class="control-group success">
+											<label class="control-label" for="creationDate">创建时间</label>
+											<div class="controls">
+												<input type="text" class="input-xlarge datepicker"
+													   id="creationDate" name="creationDate" value="${account.creationDate}">
+											</div>
+										</div>
 									<div class="form-actions">
 										<input type="submit" class="btn btn-primary"></input>
 										<button class="btn">取消</button>
 									</div>
 								</fieldset>
+								</c:forEach>
 							</form>
 
 						</div>

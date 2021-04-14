@@ -21,6 +21,7 @@ import java.util.List;
 public class UserControl {
     @Resource
     private UserService userService;
+
     //用户名是否相等
     @RequestMapping("/toLogin")
     public String toLogin(Model model, HttpServletRequest request) {
@@ -40,23 +41,23 @@ public class UserControl {
             return "login";
         }
     }
+
     //用户名是否存在
     @RequestMapping("/toNameLogin")
     @ResponseBody   //不需要跳转到任何页面，直接把返回值给ajax
-    public boolean toNameLogin(Model model,HttpServletRequest request) {
+    public Object toNameLogin(Model model, HttpServletRequest request) {
         String userName = request.getParameter("userName");
         List<User> list = userService.selectServiceUserName();
-        boolean flag = false;
+        System.out.printf(userName);
+        String flag = "true";
         for (User users : list) {
-            if (users.getUserName().equals(userName)) {
-                flag = true;
-                break;
-            }else{
-                return flag;
+            if (userName.equals(users.getUserName()) || userName == "") {
+                flag = "false";
             }
         }
-        return true;
+            return flag;
     }
+
     @RequestMapping("/login")
     public String login() {
         return "login";
@@ -66,21 +67,24 @@ public class UserControl {
     public String index() {
         return "index";
     }
+
     //展示页面
     @RequestMapping("/tableUser")
-    public String tableUser(Model model){
+    public String tableUser(Model model) {
         List<User> list = userService.getServiceUser();
-        model.addAttribute("list",list);
+        model.addAttribute("list", list);
         return "tableUser";
     }
+
     //添加用户页面
     @RequestMapping("/userForm")
-    public String userForm(){
+    public String userForm() {
         return "userForm";
     }
+
     //用户添加操作
     @RequestMapping("/toUserForm")
-    public String toUserForm(Model model,HttpServletRequest request){
+    public String toUserForm(Model model, HttpServletRequest request) {
         String userCode = request.getParameter("userCode");
         String userName = request.getParameter("userName");
         String userPassword = request.getParameter("userPassword");
@@ -115,22 +119,23 @@ public class UserControl {
 
     //用户删除操作
     @RequestMapping("/deleteUser")
-    public String deleteUser(Model model,HttpServletRequest request){
+    public String deleteUser(Model model, HttpServletRequest request) {
         Integer id = Integer.parseInt(request.getParameter("id"));
         boolean list = userService.deleteServiceUser(id);
         return "index";
     }
+
     //用户修改页面
     @RequestMapping("/userUpdateForm")
-    public String userUpdateForm(Model model,HttpServletRequest request){
+    public String userUpdateForm(Model model, HttpServletRequest request) {
         Integer id = Integer.parseInt(request.getParameter("id"));
         List<User> list = userService.selectServiceUserID(id);
-        model.addAttribute("list",list);
+        model.addAttribute("list", list);
         return "userUpdateForm";
     }
 
     @RequestMapping("/userID")
-    public String userID(Model model,HttpServletRequest request){
+    public String userID(Model model, HttpServletRequest request) {
         Integer id = Integer.parseInt(request.getParameter("id"));
         String userCode = request.getParameter("userCode");
         String userName = request.getParameter("userName");

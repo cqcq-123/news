@@ -174,7 +174,7 @@ body {
 						<li><a class="ajax-link" href="${pageContext.request.contextPath}/billControl/tableBill"><i class="icon-calendar"></i><span class="hidden-tablet"> 订单列表</span></a></li>
 						<li><a class="ajax-link" href="${pageContext.request.contextPath}/addressControl/tableAddress"><i class="icon-th"></i><span class="hidden-tablet"> 地址列表</span></a></li>
 						<li><a class="ajax-link" href="${pageContext.request.contextPath}/userControl/tableUser"><i class="icon-folder-open"></i><span class="hidden-tablet"> 用户列表</span></a></li>
-						<li><a href="${pageContext.request.contextPath}/roleControl/tableRole"><i class="icon-globe"></i><span class="hidden-tablet">角色列表</span></a></li>
+						<li><a href="${pageContext.request.contextPath}/accountControl/tableaccount"><i class="icon-globe"></i><span class="hidden-tablet">角色列表</span></a></li>
 						<li><a class="ajax-link" href="${pageContext.request.contextPath}/accountControl/tableAccount"><i class="icon-star"></i><span class="hidden-tablet"> 用户管理</span></a></li>
 						<li><a href="${pageContext.request.contextPath}/providerControl/error"><i class="icon-ban-circle"></i><span
 								class="hidden-tablet"> Error Page</span> </a>
@@ -215,7 +215,7 @@ body {
 					<div class="box span12">
 						<div class="box-header well" data-original-title>
 							<h2>
-								<i class="icon-edit"></i> 地址表单添加
+								<i class="icon-edit"></i> 用户表单添加
 							</h2>
 							<div class="box-icon">
 								<a href="#" class="btn btn-setting btn-round"><i
@@ -227,41 +227,54 @@ body {
 							</div>
 						</div>
 						<div class="box-content">
-							<form class="form-horizontal" action="addressControl/toaddressForm" method="post">
+							<form class="form-horizontal" action="accountControl/toAccountForm" method="post">
 								<fieldset>
 									<div class="control-group success">
-										<label class="control-label" for="contact">联系人姓名</label>
+										<label class="control-label" for="devCode">编号</label>
 										<div class="controls">
-											<input type="text" id="contact" name="contact"> <span
+											<input type="text" id="devCode" name="devCode"> <span
 												class="help-inline"></span>
 										</div>
 									</div>
 									<div class="control-group success">
-										<label class="control-label" for="addressDesc">收货地址明细</label>
+										<label class="control-label" for="devName">姓名</label>
 										<div class="controls">
-											<input type="text" id="addressDesc" name="addressDesc"> <span
+											<input type="text" id="devName" name="devName"> <span
 												class="help-inline"></span>
 										</div>
 									</div>
 									<div class="control-group success">
-										<label class="control-label" for="postCode">邮编</label>
+										<label class="control-label" for="devPassword">密码</label>
 										<div class="controls">
-											<input type="text" id="postCode" name="postCode"> <span
+											<input type="text" id="devPassword" name="devPassword"> <span
 												class="help-inline"></span>
 										</div>
 									</div>
 									<div class="control-group success">
-										<label class="control-label" for="tel">联系人电话</label>
+										<label class="control-label" for="devEmail">邮箱</label>
 										<div class="controls">
-											<input type="text" id="tel" name="tel"> <span
-												class="help-inline"></span>
+											<div class="input-prepend">
+												<span class="add-on">@</span><input id="devEmail"
+												size="16" name="devEmail" type="text">
+											</div>
+											<p class="help-block"></p>
+										</div>
+									</div>
+									<div class="control-group success">
+										<label class="control-label" for="devInfo">信息
+											</label>
+										<div class="controls">
+											<textarea class="cleditor" id="devInfo" name="devInfo" rows="3"></textarea>
 										</div>
 									</div>
 									<div class="control-group success">
 										<label class="control-label" for="createdBy">创建者</label>
 										<div class="controls">
-											<input type="text" id="createdBy" name="createdBy"> <span
-												class="help-inline"></span>
+											<select name="createdBy" id="createdBy">
+												<option value="1">经理</option>
+												<option value="2">主管</option>
+												<option value="3">员工</option>
+											</select>
 										</div>
 									</div>
 									<div class="control-group success">
@@ -277,7 +290,6 @@ body {
 									</div>
 								</fieldset>
 							</form>
-
 						</div>
 					</div>
 					<!--/span-->

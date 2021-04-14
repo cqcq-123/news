@@ -136,7 +136,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><a class="ajax-link" href="${pageContext.request.contextPath}/billControl/tableBill"><i class="icon-calendar"></i><span class="hidden-tablet"> 订单列表</span></a></li>
 						<li><a class="ajax-link" href="${pageContext.request.contextPath}/addressControl/tableAddress"><i class="icon-th"></i><span class="hidden-tablet"> 地址列表</span></a></li>
 						<li><a class="ajax-link" href="${pageContext.request.contextPath}/userControl/tableUser"><i class="icon-folder-open"></i><span class="hidden-tablet"> 用户列表</span></a></li>
-						<li><a href="${pageContext.request.contextPath}/roleControl/tableRole"><i class="icon-globe"></i><span class="hidden-tablet">角色列表</span></a></li>
+						<li><a href="${pageContext.request.contextPath}/AccountControl/tableAccount"><i class="icon-globe"></i><span class="hidden-tablet">角色列表</span></a></li>
 						<li><a class="ajax-link" href="${pageContext.request.contextPath}/accountControl/tableAccount"><i class="icon-star"></i><span class="hidden-tablet"> 用户管理</span></a></li>
 						<li><a href="${pageContext.request.contextPath}/providerControl/error"><i class="icon-ban-circle"></i><span class="hidden-tablet"> Error Page</span></a></li>
 						<li><a href="${pageContext.request.contextPath}/providerControl/login"><i class="icon-lock"></i><span class="hidden-tablet"> Login Page</span></a></li>
@@ -178,7 +178,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
 						</div>
 					</div>
-					<div><a class="btn btn-warning" style="position:absolute;left: 450px;top: 175px;" href="addressControl/addressForm">
+					<div><a class="btn btn-warning" style="position:absolute;left: 450px;top: 175px;" href="accountControl/accountForm">
 						<i class="icon-plus icon-white"></i>
 						添加
 					</a></div>
@@ -186,34 +186,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<table class="table table-striped table-bordered bootstrap-datatable datatable">
 						  <thead>
 							  <tr>
-								  <th style="font-size: 18px;text-align: center;display:table-cell; vertical-align:middle">联系人姓名</th>
-			 					  <th style="font-size: 18px;text-align: center;display:table-cell; vertical-align:middle">收货地址明细</th>
-								  <th style="font-size: 18px;text-align: center;display:table-cell; vertical-align:middle">邮编</th>
-								  <th style="font-size: 18px;text-align: center;display:table-cell; vertical-align:middle">联系人电话</th>
+								  <th style="font-size: 18px;text-align: center;display:table-cell; vertical-align:middle">编号</th>
+			 					  <th style="font-size: 18px;text-align: center;display:table-cell; vertical-align:middle">姓名</th>
+								  <th style="font-size: 18px;text-align: center;display:table-cell; vertical-align:middle">密码</th>
+								  <th style="font-size: 18px;text-align: center;display:table-cell; vertical-align:middle">姓名</th>
+								  <th style="font-size: 18px;text-align: center;display:table-cell; vertical-align:middle">邮箱</th>
 								  <th style="font-size: 18px;text-align: center;display:table-cell; vertical-align:middle">创建者</th>
 								  <th style="font-size: 18px;text-align: center;display:table-cell; vertical-align:middle">创建时间</th>
 								  <th style="font-size: 20px;text-align: center;display:table-cell; vertical-align:middle">操作</th>
 							  </tr>
 						  </thead>   
 						  <tbody>
-						  <c:forEach items="${list}" var="address">
+						  <c:forEach items="${list}" var="account">
 							<tr>
-								<td class="center" style="font-size: 16px;text-align: center;display:table-cell; vertical-align:middle">${address.contact}</td>
-								<td class="center" style="font-size: 16px;text-align: center;display:table-cell; vertical-align:middle">${address.addressDesc}</td>
-								<td class="center" style="font-size: 16px;text-align: center;display:table-cell; vertical-align:middle">${address.postCode}</td>
-								<td class="center" style="font-size: 16px;text-align: center;display:table-cell; vertical-align:middle">${address.tel}</td>
-								<td class="center" style="font-size: 16px;text-align: center;display:table-cell; vertical-align:middle">${address.createdBy}</td>
-								<td class="center" style="font-size: 16px;text-align: center;display:table-cell; vertical-align:middle;"><fmt:formatDate value="${address.creationDate}" pattern="yyyy-MM-dd"></fmt:formatDate></td>
+								<td class="center" style="font-size: 16px;text-align: center;display:table-cell; vertical-align:middle">${account.devCode}</td>
+								<td class="center" style="font-size: 16px;text-align: center;display:table-cell; vertical-align:middle">${account.devName}</td>
+								<td class="center" style="font-size: 16px;text-align: center;display:table-cell; vertical-align:middle">${account.devPassword}</td>
+								<td class="center" style="font-size: 16px;text-align: center;display:table-cell; vertical-align:middle">${account.devEmail}</td>
+								<td class="center" style="font-size: 16px;text-align: center;display:table-cell; vertical-align:middle">${account.devInfo}</td>
+								<td class="center" style="font-size: 16px;text-align: center;display:table-cell; vertical-align:middle">${account.createdBy}</td>
+								<td class="center" style="font-size: 16px;text-align: center;display:table-cell; vertical-align:middle;"><fmt:formatDate value="${account.creationDate}" pattern="yyyy-MM-dd"></fmt:formatDate></td>
 								<td class="center" style="text-align: center;display:table-cell; vertical-align:middle">
 									<a class="btn btn-success" href="#" >
 										<i class="icon-zoom-in icon-white"></i>  
 										查&nbsp;&nbsp;看
 									</a>
-									<a class="btn btn-info" href="addressControl/addressUpdateForm?id=${address.id}" >
+									<a class="btn btn-info" href="accountControl/accountUpdateForm?id=${account.id}" >
 										<i class="icon-edit icon-white"></i>  
 										修&nbsp;&nbsp;改
 									</a>
-									<a class="btn btn-danger" onclick="return del()" href="addressControl/deleteAddress?id=${address.id}" >
+									<a class="btn btn-danger" onclick="return del()" href="accountControl/deleteAccount?id=${account.id}" >
 										<i class="icon-trash icon-white"></i> 
 										删&nbsp;&nbsp;除
 									</a>

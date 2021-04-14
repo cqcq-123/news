@@ -56,22 +56,42 @@ body {
 
 <!-- The fav icon -->
 <link rel="shortcut icon" href="img/favicon.ico">
-	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery-1.7.2.min.js"></script>
 	<script>
-        $(document).ready(function() {
-			$("#userName").focusout(function () {
-				$.ajax({
-					type:"POST",
-					url:"userControl/toNameLogin",
-					data:"name"+$("#userName").val(),
-					success:function (msg) {
-						if(msg == "true"){
-						    alert("cz");
-						}
-                    }
-				});
-            });
-        });
+      $(function () {
+         $("#userName").blur(function () {
+             $.get("userControl/toNameLogin?userName="+$('#userName').val(),
+				  function (data) {
+                    if(data == "false"){
+                        alert("用户名已被占用或为空");
+					}
+                 });
+         });
+      });
+    /* function validate() {
+         var userName = $("#userName").val();
+		 if(userName == null || userName == ""){
+				$("#userName").html("用户名不能为空");
+		 }else{
+			$.ajax({
+				url:"userControl/toNameLogin",
+				type:"GET",
+				date:{"userName":userName},
+				dateType:"",
+				success:function (result) {
+					if(result == "true"){
+                        alert("存在");
+					}else{
+                        alert("不存在");
+					}
+                },
+				error:function () {
+					alert("报错了");
+                }
+
+			});
+		 }
+     }*/
 	</script>
 </head>
 
@@ -191,10 +211,8 @@ body {
 						<li><a class="ajax-link" href="${pageContext.request.contextPath}/billControl/tableBill"><i class="icon-calendar"></i><span class="hidden-tablet"> 订单列表</span></a></li>
 						<li><a class="ajax-link" href="${pageContext.request.contextPath}/addressControl/tableAddress"><i class="icon-th"></i><span class="hidden-tablet"> 地址列表</span></a></li>
 						<li><a class="ajax-link" href="${pageContext.request.contextPath}/userControl/tableUser"><i class="icon-folder-open"></i><span class="hidden-tablet"> 用户列表</span></a></li>
-						<li><a href="${pageContext.request.contextPath}/roleControl/tableRole"><i class="icon-globe"></i><span class="hidden-tablet">角色列表</span></a></li><li><a href="${pageContext.request.contextPath}/roleControl/tableRole"><i class="icon-globe"></i><span class="hidden-tablet">角色列表</span></a></li>
-						<li><a class="ajax-link" href="${pageContext.request.contextPath}/providerControl/icon"><i
-								class="icon-star"></i><span class="hidden-tablet"> Icons</span>
-						</a>
+						<li><a href="${pageContext.request.contextPath}/AccountControl/tableAccount"><i class="icon-globe"></i><span class="hidden-tablet">角色列表</span></a></li>
+						<li><a class="ajax-link" href="${pageContext.request.contextPath}/accountControl/tableAccount"><i class="icon-star"></i><span class="hidden-tablet"> 用户管理</span></a></li>
 						</li>
 						<li><a href="${pageContext.request.contextPath}/providerControl/error"><i class="icon-ban-circle"></i><span
 								class="hidden-tablet"> Error Page</span> </a>
@@ -247,7 +265,7 @@ body {
 							</div>
 						</div>
 						<div class="box-content">
-							<form class="form-horizontal" action="userControl/toUserForm" method="post">
+							<form class="form-horizontal" action="userControl/toUserForm" method="get">
 								<fieldset>
 									<div class="control-group warning">
 										<label class="control-label" for="userCode">用户编码</label>
@@ -266,28 +284,30 @@ body {
 									<div class="control-group warning">
 										<label class="control-label" for="userPassword" required>用户密码</label>
 										<div class="controls">
-											<input type="text" id="userPassword" name="userPassword"> <span
+											<input type="text" id="userPassword" name="userPassword" pattern=".{6}" title="用户密码限制6个字符"> <span
 												class="help-inline"></span>
 										</div>
 									</div>
 									<div class="control-group warning">
 										<label class="control-label" for="gender">性别</label>
-										<div class="controls">
-											<input type="text" id="gender" name="gender"> <span
-												class="help-inline"></span>
+										<div class="controls" id="gender">
+											<input type="radio"  name="gender" value="1">男
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											<input type="radio"  name="gender" value="2">女
 										</div>
 									</div>
 									<div class="control-group warning">
 										<label class="control-label" for="birthday">出生日期</label>
 										<div class="controls">
-											<input type="text" id="birthday" name="birthday"> <span
+											<input type="text" id="birthday" name="birthday"
+												   class="input-xlarge datepicker"> <span
 												class="help-inline"></span>
 										</div>
 									</div>
 									<div class="control-group warning">
 										<label class="control-label" for="phone">手机</label>
 										<div class="controls">
-											<input type="text" id="phone" name="phone"> <span
+											<input type="text" id="phone" name="phone" pattern=".{11}"> <span
 												class="help-inline"></span>
 										</div>
 									</div>
@@ -300,16 +320,24 @@ body {
 									</div>
 									<div class="control-group warning">
 										<label class="control-label" for="userRole">用户角色</label>
-										<div class="controls">
-											<input type="text" id="userRole" name="userRole"> <span
-												class="help-inline"></span>
+										<div class="controls" id="userRole">
+											<select name="userRole">
+												<option value="1">经理</option>
+												<option value="2">主管</option>
+												<option value="3">员工</option>
+											</select>
+											<span class="help-inline"></span>
 										</div>
 									</div>
 									<div class="control-group warning">
 										<label class="control-label" for="createdBy">创建者</label>
-										<div class="controls">
-											<input type="text" id="createdBy" name="createdBy"> <span
-												class="help-inline"></span>
+										<div class="controls" id="createdBy">
+											<select name="createdBy">
+												<option value="1">张三</option>
+												<option value="2">李四</option>
+												<option value="3">王五</option>
+											</select>
+											<span class="help-inline"></span>
 										</div>
 									</div>
 									<div class="control-group warning">

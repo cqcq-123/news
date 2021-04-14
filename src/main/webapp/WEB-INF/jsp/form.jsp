@@ -178,10 +178,7 @@ body {
 									File Manager</span> </a>
 						</li>
 						<li><a href="${pageContext.request.contextPath}/roleControl/tableRole"><i class="icon-globe"></i><span class="hidden-tablet">角色列表</span></a></li>
-						<li><a class="ajax-link" href="${pageContext.request.contextPath}/providerControl/icon"><i
-								class="icon-star"></i><span class="hidden-tablet"> Icons</span>
-						</a>
-						</li>
+						<li><a class="ajax-link" href="${pageContext.request.contextPath}/accountControl/tableAccount"><i class="icon-star"></i><span class="hidden-tablet"> 用户管理</span></a></li>
 						<li><a href="${pageContext.request.contextPath}/providerControl/error"><i class="icon-ban-circle"></i><span
 								class="hidden-tablet"> Error Page</span> </a>
 						</li>
