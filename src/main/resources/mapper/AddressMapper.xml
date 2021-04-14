@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.easybuy.dao.AddressMapper">
+    <select id="selectAddress" resultType="Address">
+SELECT * FROM `smbms_address`
+    </select>
+    <insert id="addAddress" parameterType="Address">
+INSERT INTO `smbms_address`
+(`contact`,`addressDesc`,`postCode`,`tel`,`createdBy`,`creationDate`,`modifyBy`,`modifyDate`,`userId`)
+VALUES(#{contact},#{addressDesc},#{postCode},#{tel},#{createdBy},#{creationDate},#{modifyBy},
+#{modifyDate},#{userId})
+    </insert>
+    <delete id="deleteAddress" parameterType="Address">
+        DELETE FROM  `smbms_address` WHERE id = #{id}
+    </delete>
+    <select id="selectAddressID" resultType="Address">
+SELECT * FROM `smbms_address` WHERE id = #{id}
+    </select>
+    <update id="updateAddress" parameterType="Address">
+        UPDATE `smbms_address`
+	set
+				`contact`=#{contact},
+				`addressDesc`=#{addressDesc},
+				`postCode`=#{postCode},
+				`tel`=#{tel},
+				`createdBy`=#{createdBy},
+				`creationDate`=#{creationDate},
+				`modifyBy`=#{modifyBy},
+				`modifyDate`=#{modifyDate},
+				`userId`=#{userId}
+		WHERE `id`=#{id}
+    </update>
+</mapper>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.2.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+	">
+	<!-- 注解去包名 -->
+	<context:component-scan base-package="cn.easybuy.service"></context:component-scan>
+	<!-- 数据源连接 id自取，其余name，class固定写法，value根据情况自定 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url"
+			value="jdbc:mysql://127.0.0.1:3306/smbms?useUnicode=true&amp;characterEncoding=utf-8&amp;relaxAutoCommit=true&amp;zeroDateTimeBehavior=convertToNull"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value=""></property>
+	</bean>
+	<!-- id自定，class固定 -->
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- name是固定 ——ref是上面的id -->
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- mybatis配置文件名 -->
+		<property name="configLocation" value="classpath:MybatisBase.xml"></property>
+		<!-- 数组形式，取此包名下所有后缀为Mapper.xml的文件，不需要重复配置 -->
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:mapper/*Mapper.xml</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 第三种方法：1.不需要dao层实现类。2.dao层接口与映射文件名相同.3.批量扫描生成实例 -->
+	<!-- class,name固定 ref中的值取上面的id -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="sqlSessionFactory" ref="sqlSessionFactoryBean"></property>
+		<property name="basePackage" value="cn.easybuy.dao"></property>
+	</bean>
+
+</beans>
